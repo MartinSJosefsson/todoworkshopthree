@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import { Nav, Button, Modal, Form } from 'react-bootstrap'; // Ensure all components are imported
+import { Nav, Button, Modal, Form } from 'react-bootstrap';
 
 const TodoSidebar = ({ onClose }) => {
   const [username, setUsername] = useState('Username');
   const [showLogin, setShowLogin] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [loginData, setLoginData] = useState({ username: '', password: '' });
 
-  const handleLogoutClick = () => {
+  const handleLoginClick = () => {
     setShowLogin(true);
   };
 
@@ -16,10 +17,21 @@ const TodoSidebar = ({ onClose }) => {
   };
 
   const handleLoginSubmit = () => {
-    if (loginData.username.trim()) { // Basic validation to avoid empty username
+    if (loginData.username.trim()) {
       setUsername(loginData.username);
       handleLoginClose();
     }
+  };
+
+  const handleLogoutClick = () => {
+    setShowLogoutConfirm(true);
+  };
+
+  const handleLogoutConfirm = (confirm) => {
+    if (confirm) {
+      setUsername('Username');
+    }
+    setShowLogoutConfirm(false);
   };
 
   return (
@@ -38,8 +50,13 @@ const TodoSidebar = ({ onClose }) => {
       </Nav.Link>
       <div className="mt-auto p-2">
         <span className="d-block mb-2">{username}</span>
-        <Button variant="primary" onClick={handleLogoutClick} className="text-white">
-          <i className="bi bi-box-arrow-right me-2"></i> Logout
+        <Button
+          variant="primary"
+          onClick={username === 'Username' ? handleLoginClick : handleLogoutClick}
+          className="text-white"
+        >
+          <i className="bi bi-box-arrow-right me-2"></i>
+          {username === 'Username' ? 'Login' : 'Logout'}
         </Button>
       </div>
 
@@ -74,6 +91,21 @@ const TodoSidebar = ({ onClose }) => {
             Cancel
           </Button>
           <Button variant="primary" onClick={handleLoginSubmit}>
+            OK
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showLogoutConfirm} onHide={() => handleLogoutConfirm(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Logout</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Do you want to log out?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => handleLogoutConfirm(false)}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={() => handleLogoutConfirm(true)}>
             OK
           </Button>
         </Modal.Footer>

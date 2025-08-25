@@ -9,7 +9,7 @@ import './App.css';
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
-  const [searchTerm, setSearchTerm] = useState(''); // Lifted search state to App
+  const [searchTerm, setSearchTerm] = useState(''); 
 
   const handleCloseSidebar = () => setShowSidebar(false);
   const handleShowSidebar = () => setShowSidebar(true);

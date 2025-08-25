@@ -34,10 +34,11 @@ const TodoFooter = ({ searchTerm }) => {
     setSortOrder(sortOrder === 'newest' ? 'oldest' : 'newest');
   };
 
-  
   const filteredTodos = searchTerm
     ? sortedTodos.filter((todo) =>
-        todo.title.toLowerCase().includes(searchTerm.toLowerCase())
+        todo.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        todo.dueDate.includes(searchTerm) || 
+        (todo.assignedTo && todo.assignedTo.toLowerCase().includes(searchTerm.toLowerCase()))
       )
     : sortedTodos;
 
@@ -93,7 +94,7 @@ const TodoFooter = ({ searchTerm }) => {
                       >
                         <option>--Select Person (Optional)--</option>
                         <option value="Martin Josefsson">Martin Josefsson</option>
-                        <option value="Mehrdad Javan">Mehrdad Javan</option>
+                        <option value="Mehrdad Javan">Mehrdad Javan</option>                        
                       </Form.Select>
                     </Form.Group>
                   </div>

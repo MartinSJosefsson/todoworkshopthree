@@ -6,6 +6,7 @@ const TodoFooter = () => {
   const { todos, deleteTodo, completeTodo, updateTodo } = useContext(TodoContext);
   const [editTodo, setEditTodo] = useState(null);
   const [editForm, setEditForm] = useState({ title: '', description: '', dueDate: '', assignedTo: '' });
+  const [sortOrder, setSortOrder] = useState('newest'); // 'newest' or 'oldest'
 
   const handleEdit = (todo) => {
     setEditTodo(todo.id);
@@ -13,9 +14,9 @@ const TodoFooter = () => {
   };
 
   const handleSaveEdit = (todo) => {
-    console.log('Saving edit for ID:', todo.id, 'with data:', editForm); // Debug log
-    updateTodo({ ...todo, ...editForm }); // Update with new form data, preserving other fields like id and completed
-    setEditTodo(null); // Exit edit mode
+    console.log('Saving edit for ID:', todo.id, 'with data:', editForm);
+    updateTodo({ ...todo, ...editForm });
+    setEditTodo(null);
   };
 
   const handleCancelEdit = () => {
@@ -23,14 +24,27 @@ const TodoFooter = () => {
     setEditForm({ title: '', description: '', dueDate: '', assignedTo: '' });
   };
 
+  const sortedTodos = [...todos].sort((a, b) => {
+    const dateA = new Date(a.id); // Assuming id is a timestamp (Date.now())
+    const dateB = new Date(b.id);
+    return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+  });
+
+  const toggleSortOrder = () => {
+    setSortOrder(sortOrder === 'newest' ? 'oldest' : 'newest');
+  };
+
   return (
     <div className="p-3 white-bg">
       <Card className="mb-2">
-        <Card.Body className="text-start">
+        <Card.Body className="text-start d-flex justify-content-between align-items-center">
           <h5>Todos</h5>
+          <Button variant="outline-secondary" size="sm" onClick={toggleSortOrder} title={sortOrder === 'newest' ? 'Sort Newest to Oldest' : 'Sort Oldest to Newest'}>
+            <i className={`bi ${sortOrder === 'newest' ? 'bi-sort-down' : 'bi-sort-up'}`}></i>
+          </Button>
         </Card.Body>
       </Card>
-      {todos.map((todo) => (
+      {sortedTodos.map((todo) => (
         <Card key={todo.id} className="mb-2">
           <Card.Body>
             {editTodo === todo.id ? (

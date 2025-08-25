@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Nav, Button, Modal, Form } from 'react-bootstrap';
-import papasmurf from '../assets/papasmurf.png'; // Import the image, adjust extension if needed (e.g., .jpg)
+import papasmurf from '../assets/papasmurf.png'; 
 
 const TodoSidebar = ({ onClose }) => {
   const [username, setUsername] = useState('Username');

@@ -3,14 +3,12 @@ import { createContext, useState, useEffect } from 'react';
 export const TodoContext = createContext();
 
 export const TodoProvider = ({ children }) => {
-  const [todos, setTodos] = useState(() => {
-    // Load from localStorage on initial render
+  const [todos, setTodos] = useState(() => {    
     const savedTodos = localStorage.getItem('todos');
     return savedTodos ? JSON.parse(savedTodos) : [];
   });
 
-  useEffect(() => {
-    // Save to localStorage whenever todos change
+  useEffect(() => {    
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 

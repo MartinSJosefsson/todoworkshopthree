@@ -34,7 +34,7 @@ const TodoFooter = ({ searchTerm }) => {
     setSortOrder(sortOrder === 'newest' ? 'oldest' : 'newest');
   };
 
-  // Filter todos based on search term
+  
   const filteredTodos = searchTerm
     ? sortedTodos.filter((todo) =>
         todo.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -94,7 +94,6 @@ const TodoFooter = ({ searchTerm }) => {
                         <option>--Select Person (Optional)--</option>
                         <option value="User1">User1</option>
                         <option value="User2">User2</option>
-                        {/* Add more options as needed */}
                       </Form.Select>
                     </Form.Group>
                   </div>

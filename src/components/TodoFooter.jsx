@@ -2,11 +2,11 @@ import { useContext, useState } from 'react';
 import { Card, Badge, Button, Form } from 'react-bootstrap';
 import { TodoContext } from '../context/TodoContext';
 
-const TodoFooter = () => {
+const TodoFooter = ({ searchTerm }) => {
   const { todos, deleteTodo, completeTodo, updateTodo } = useContext(TodoContext);
   const [editTodo, setEditTodo] = useState(null);
   const [editForm, setEditForm] = useState({ title: '', description: '', dueDate: '', assignedTo: '' });
-  const [sortOrder, setSortOrder] = useState('newest'); // 'newest' or 'oldest'
+  const [sortOrder, setSortOrder] = useState('newest');
 
   const handleEdit = (todo) => {
     setEditTodo(todo.id);
@@ -25,7 +25,7 @@ const TodoFooter = () => {
   };
 
   const sortedTodos = [...todos].sort((a, b) => {
-    const dateA = new Date(a.id); // Assuming id is a timestamp (Date.now())
+    const dateA = new Date(a.id);
     const dateB = new Date(b.id);
     return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
   });
@@ -33,6 +33,13 @@ const TodoFooter = () => {
   const toggleSortOrder = () => {
     setSortOrder(sortOrder === 'newest' ? 'oldest' : 'newest');
   };
+
+  // Filter todos based on search term
+  const filteredTodos = searchTerm
+    ? sortedTodos.filter((todo) =>
+        todo.title.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : sortedTodos;
 
   return (
     <div className="p-3 white-bg">
@@ -44,7 +51,7 @@ const TodoFooter = () => {
           </Button>
         </Card.Body>
       </Card>
-      {sortedTodos.map((todo) => (
+      {filteredTodos.map((todo) => (
         <Card key={todo.id} className="mb-2">
           <Card.Body>
             {editTodo === todo.id ? (

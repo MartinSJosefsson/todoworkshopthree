@@ -1,21 +1,27 @@
-import { Form, InputGroup } from 'react-bootstrap';
+import { Form, InputGroup, Card } from 'react-bootstrap';
 
-const TodoHeader = ({ onShowSidebar }) => {
+const TodoHeader = ({ onShowSidebar, searchTerm, setSearchTerm }) => {
   return (
-    <div className="p-3 bg-white border-bottom">
-      <div className="d-flex align-items-center justify-content-between">
-        <div className="d-flex align-items-center">
-          <button className="btn btn-outline-primary me-2 d-md-none" onClick={onShowSidebar}>
-            <i className="bi bi-list"></i>
-          </button>
+    <Card className="mb-2">
+      <Card.Body className="p-3" style={{ minHeight: '50px' }}>
+        <div className="d-flex align-items-center justify-content-between">
           <h4 className="mb-0">Tasks</h4>
+          <div className="d-flex align-items-center">
+            <InputGroup className="me-2" style={{ maxWidth: '300px' }}>
+              <Form.Control
+                placeholder="Search Tasks..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <InputGroup.Text><i className="bi bi-search"></i></InputGroup.Text>
+            </InputGroup>
+            <button className="btn btn-outline-primary d-md-none" onClick={onShowSidebar}>
+              <i className="bi bi-list"></i>
+            </button>
+          </div>
         </div>
-        <InputGroup className="ms-auto" style={{ maxWidth: '300px' }}>
-          <Form.Control placeholder="Search Tasks..." />
-          <InputGroup.Text><i className="bi bi-search"></i></InputGroup.Text>
-        </InputGroup>
-      </div>
-    </div>
+      </Card.Body>
+    </Card>
   );
 };
 

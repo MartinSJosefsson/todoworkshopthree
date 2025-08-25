@@ -9,6 +9,7 @@ import './App.css';
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(''); // Lifted search state to App
 
   const handleCloseSidebar = () => setShowSidebar(false);
   const handleShowSidebar = () => setShowSidebar(true);
@@ -29,9 +30,9 @@ function App() {
             <TodoSidebar />
           </Col>
           <Col md={10}>
-            <TodoHeader onShowSidebar={handleShowSidebar} />
+            <TodoHeader onShowSidebar={handleShowSidebar} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
             <TodoBody />
-            <TodoFooter />
+            <TodoFooter searchTerm={searchTerm} />
           </Col>
         </Row>
       </Container>

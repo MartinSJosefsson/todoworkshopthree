@@ -79,8 +79,8 @@ const TodoBody = () => {
                   <Form.Label>Assign to (Person Optional)</Form.Label>
                   <Form.Select value={assignedTo} onChange={(e) => setAssignedTo(e.target.value)}>
                     <option>--Select Person (Optional)--</option>
-                    <option value="User1">Martin Josefsson</option>
-                    <option value="User2">Mehrdad Javan</option>
+                    <option value="Martin Josefsson">Martin Josefsson</option>
+                    <option value="Mehrdad Javan">Mehrdad Javan</option>
                   </Form.Select>
                 </Form.Group>
               </div>

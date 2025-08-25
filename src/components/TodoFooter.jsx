@@ -92,8 +92,8 @@ const TodoFooter = ({ searchTerm }) => {
                         onChange={(e) => setEditForm({ ...editForm, assignedTo: e.target.value })}
                       >
                         <option>--Select Person (Optional)--</option>
-                        <option value="User1">User1</option>
-                        <option value="User2">User2</option>
+                        <option value="Martin Josefsson">Martin Josefsson</option>
+                        <option value="Mehrdad Javan">Mehrdad Javan</option>
                       </Form.Select>
                     </Form.Group>
                   </div>

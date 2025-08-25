@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Nav, Button, Modal, Form } from 'react-bootstrap';
+import papasmurf from '../assets/papasmurf.png'; // Import the image, adjust extension if needed (e.g., .jpg)
 
 const TodoSidebar = ({ onClose }) => {
   const [username, setUsername] = useState('Username');
@@ -36,6 +37,8 @@ const TodoSidebar = ({ onClose }) => {
 
   return (
     <Nav className="flex-column p-3 h-100">
+      <img src={papasmurf} alt="Papa Smurf" className="img-fluid mb-3" style={{ width: '100px', height: '150px' }}/>
+      <hr />
       <Nav.Link href="#" className="text-start" onClick={onClose}>
         <i className="bi bi-speedometer2 me-2"></i> Dashboard
       </Nav.Link>
